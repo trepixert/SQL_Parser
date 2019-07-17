@@ -18,7 +18,7 @@ public class SQLParserImpl implements SQLParser {
     private String[] operators =
             {"SELECT", "FROM", "LEFT JOIN",
                     "RIGHT JOIN", "JOIN", "FULL JOIN",
-                    "GROUP BY", "SORT BY", "HAVING", "LIMIT","OFFSET"};
+                    "GROUP BY", "SORT BY", "HAVING", "LIMIT", "OFFSET"};
 
     public void parse(String query) {
         query = findAndRemoveInnerQueries(query);
@@ -45,7 +45,7 @@ public class SQLParserImpl implements SQLParser {
             if (indexStart == -1) break;
             int indexEnd = getIndexEnd(query, indexStart);
             size++;
-            innerParse(sb.substring(indexStart+1, indexEnd), innerQuery);
+            innerParse(sb.substring(indexStart + 1, indexEnd), innerQuery);
             sb.delete(indexStart, indexEnd + 1);
             sb.insert(indexStart, "inner" + count++);
             this.query.addInnerQuery(innerQuery);
@@ -108,20 +108,12 @@ public class SQLParserImpl implements SQLParser {
 
     private void findLimit(String subexpression, String operator, Query query) {
         String[] limits = getElms(subexpression, operator, ",");
-        for (String limit : limits) {
-            query.setLimit(Integer.valueOf(limit));
-        }
+        query.setLimit(Integer.valueOf(limits[0]));
     }
 
-    private void findOffset(String subexpression, String operator, Query query){
-        String[] offsets = getElms(subexpression,operator,",");
-        for (String offset : offsets) {
-            query.setOffset(Integer.valueOf(offset));
-        }
-    }
-
-    private String[] getOperators() {
-        return operators;
+    private void findOffset(String subexpression, String operator, Query query) {
+        String[] offsets = getElms(subexpression, operator, ",");
+        query.setOffset(Integer.valueOf(offsets[0]));
     }
 
     private void redirectOperatorParse(String subexpression, Query query) {
@@ -152,7 +144,7 @@ public class SQLParserImpl implements SQLParser {
                 findLimit(subexpression, operator, query);
                 break;
             case "OFFSET":
-                findOffset(subexpression,operator,query);
+                findOffset(subexpression, operator, query);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + operator);
@@ -161,7 +153,6 @@ public class SQLParserImpl implements SQLParser {
 
     private String getOperator(String subexpression) {
         Scanner scanner = new Scanner(subexpression.toUpperCase());
-        String[] operators = getOperators();
         String operator = "";
         for (String o : operators) {
             operator = scanner.findInLine(o);
@@ -175,7 +166,7 @@ public class SQLParserImpl implements SQLParser {
                 .toLowerCase()
                 .replace(operator.toLowerCase(), "")
                 .replace(";", "")
-                .replaceAll("\\s {2,}", "")
+                .replaceAll("[\\s]{2,}", "")
                 .trim()
                 .split(delimiter);
     }
