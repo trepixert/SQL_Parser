@@ -32,3 +32,4 @@ having p.product_id = 101;
 from (select *<br> 
     from A) a_alias</pre>
     </li>
+</ui>
