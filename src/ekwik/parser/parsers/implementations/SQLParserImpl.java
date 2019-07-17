@@ -18,7 +18,7 @@ public class SQLParserImpl implements SQLParser {
     private String[] operators =
             {"SELECT", "FROM", "LEFT JOIN",
                     "RIGHT JOIN", "JOIN", "FULL JOIN",
-                    "GROUP BY", "SORT BY", "HAVING", "LIMIT"};
+                    "GROUP BY", "SORT BY", "HAVING", "LIMIT","OFFSET"};
 
     public void parse(String query) {
         query = findAndRemoveInnerQueries(query);
@@ -113,6 +113,13 @@ public class SQLParserImpl implements SQLParser {
         }
     }
 
+    private void findOffset(String subexpression, String operator, Query query){
+        String[] offsets = getElms(subexpression,operator,",");
+        for (String offset : offsets) {
+            query.setOffset(Integer.valueOf(offset));
+        }
+    }
+
     private String[] getOperators() {
         return operators;
     }
@@ -143,6 +150,9 @@ public class SQLParserImpl implements SQLParser {
                 break;
             case "LIMIT":
                 findLimit(subexpression, operator, query);
+                break;
+            case "OFFSET":
+                findOffset(subexpression,operator,query);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + operator);
