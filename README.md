@@ -28,7 +28,7 @@ from product p<br>
 having p.product_id = 101;
     </li>
     <li>2)
-select *<br>
+<pre>select *<br>
 from (select *<br> 
-<pre>from A) a_alias
+    from A) a_alias</pre>
     </li>
