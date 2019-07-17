@@ -11,8 +11,7 @@
 select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id
 from product p
 having p.product_id = 101;
-    </li>
-    
+    </li>    
     <li>2)
 select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id from product p
 having p.product_id = 101;
