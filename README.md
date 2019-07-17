@@ -10,7 +10,7 @@
 1)
 <pre>select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id <br>
 from product p<br>
-    having p.product_id = 101;</pre>
+having p.product_id = 101;</pre>
 2)
 <pre>select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id from product p<br>
 having p.product_id = 101;</pre>
