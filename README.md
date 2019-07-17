@@ -8,9 +8,9 @@
 Как не надо:
 <ui>
     <li>1)
-<p>select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id <br>
+select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id <br>
 from product p<br>
-    having p.product_id = 101;</p>
+    having p.product_id = 101;
     </li>    
     <li>2)
 select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id from product p<br>
@@ -28,7 +28,7 @@ from product p<br>
 having p.product_id = 101;
     </li>
     <li>2)
-<p>select *<br>
+select *<br>
 from (select *<br> 
-    from A) a_alias</p>
+<pre>from A) a_alias
     </li>
