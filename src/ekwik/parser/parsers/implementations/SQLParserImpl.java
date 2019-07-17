@@ -175,7 +175,7 @@ public class SQLParserImpl implements SQLParser {
                 .toLowerCase()
                 .replace(operator.toLowerCase(), "")
                 .replace(";", "")
-                .replaceAll("\\s {2,}", "")
+                .replaceAll("[\\s]{2,}", " ")
                 .trim()
                 .split(delimiter);
     }
