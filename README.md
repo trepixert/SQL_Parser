@@ -21,14 +21,14 @@ having p.product_id = 101;
 Как надо:
 <ui>
     <li>1)
-select p.product_name, p.supplier_name, (select order_id
-    from order_items
-    having product_id = 102) as order_id
-from product p
+select p.product_name, p.supplier_name, (select order_id<br>
+    from order_items<br>
+    having product_id = 102) as order_id<br>
+from product p<br>
 having p.product_id = 101;
     </li>
     <li>2)
-select *
-from (select * 
+select *<br>
+from (select *<br> 
   from A) a_alias
     </li>
