@@ -6,24 +6,30 @@
 Каждый оператор переводить на другую строку (включая те, что в подзапросе), например:
 
 Как не надо:
-1)
+<ui>
+    <li>1)
 select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id
 from product p
 having p.product_id = 101;
-
-2)
+    </li>
+    
+    <li>2)
 select p.product_name, p.supplier_name, (select order_id from order_items having product_id = 102) as order_id from product p
 having p.product_id = 101;
+    </li>
+</ui>
 
 Как надо:
-1)
+<ui>
+    <li>1)
 select p.product_name, p.supplier_name, (select order_id
     from order_items
     having product_id = 102) as order_id
 from product p
 having p.product_id = 101;
-
-2)
+    </li>
+    <li>2)
 select *
 from (select * 
   from A) a_alias
+    </li>
